@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buny Academy Admission Portal</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            min-height:100vh;
+            background:#020617;
+            overflow-x:hidden;
+            font-family:'Poppins', sans-serif;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:40px 20px;
+            position:relative;
+        }
+
+        .bg{
+            position:absolute;
+            width:100%;
+            height:100%;
+            overflow:hidden;
+            z-index:0;
+        }
+
+        .bg span{
+            position:absolute;
+            display:block;
+            border-radius:50%;
+            animation:animate 20s linear infinite;
+            bottom:-150px;
+        }
+
+        .bg span:nth-child(1){
+            left:10%;
+            width:120px;
+            height:120px;
+            background:#2563eb;
+            animation-duration:18s;
+        }
+
+        .bg span:nth-child(2){
+            left:70%;
+            width:200px;
+            height:200px;
+            background:#7c3aed;
+            animation-duration:25s;
+        }
+
+        .bg span:nth-child(3){
+            left:40%;
+            width:150px;
+            height:150px;
+            background:#06b6d4;
+            animation-duration:20s;
+        }
+
+        .bg span:nth-child(4){
+            left:85%;
+            width:100px;
+            height:100px;
+            background:#0ea5e9;
+            animation-duration:15s;
+        }
+
+        @keyframes animate{
+            0%{
+                transform:translateY(0) rotate(0deg);
+                opacity:0.5;
+            }
+
+            100%{
+                transform:translateY(-1200px) rotate(720deg);
+                opacity:0;
+            }
+        }
+
+        .container{
+            width:100%;
+            max-width:1000px;
+            background:rgba(255,255,255,0.08);
+            border:1px solid rgba(255,255,255,0.15);
+            backdrop-filter:blur(25px);
+            border-radius:35px;
+            padding:50px;
+            position:relative;
+            z-index:10;
+            box-shadow:
+            0 0 30px rgba(37,99,235,0.3),
+            0 0 60px rgba(124,58,237,0.2);
+        }
+
+        .logo{
+            text-align:center;
+            margin-bottom:45px;
+        }
+
+        .logo h1{
+            font-size:60px;
+            font-family:'Orbitron', sans-serif;
+            background:linear-gradient(to right,#38bdf8,#ffffff,#7c3aed);
+            -webkit-background-clip:text;
+            background-clip:text;
+            -webkit-text-fill-color:transparent;
+            letter-spacing:3px;
+        }
+
+        .logo p{
+            color:#cbd5e1;
+            margin-top:10px;
+            font-size:18px;
+        }
+
+        form{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:25px;
+        }
+
+        .full{
+            grid-column:1/3;
+        }
+
+        .input-box label{
+            display:block;
+            color:white;
+            margin-bottom:10px;
+            font-size:15px;
+            font-weight:500;
+        }
+
+        input,
+        textarea,
+        select{
+            width:100%;
+            padding:18px;
+            border-radius:18px;
+            border:1px solid rgba(255,255,255,0.1);
+            background:rgba(255,255,255,0.06);
+            color:white;
+            outline:none;
+            transition:0.4s;
+            font-size:15px;
+        }
+
+        input::placeholder,
+        textarea::placeholder{
+            color:#94a3b8;
+        }
+
+        select{
+            background:#0f172a !important;
+            color:white !important;
+        }
+
+        select option{
+            background:#0f172a;
+            color:white;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus{
+            border:1px solid #38bdf8;
+            box-shadow:
+            0 0 15px rgba(56,189,248,0.5);
+        }
+
+        textarea{
+            resize:none;
+            height:120px;
+        }
+
+        .upload-card{
+            background:rgba(255,255,255,0.05);
+            border:1px dashed rgba(255,255,255,0.2);
+            padding:22px;
+            border-radius:22px;
+        }
+
+        .upload-card label{
+            color:white;
+            font-weight:500;
+            display:block;
+            margin-bottom:15px;
+        }
+
+        .category-box{
+            background:rgba(255,255,255,0.05);
+            border:1px solid rgba(255,255,255,0.1);
+            border-radius:20px;
+            padding:25px;
+        }
+
+        .category-title{
+            color:#38bdf8;
+            font-size:18px;
+            font-weight:600;
+            display:block;
+            margin-bottom:20px;
+        }
+
+        .checkbox-grid{
+            display:flex;
+            gap:25px;
+            flex-wrap:wrap;
+        }
+
+        .checkbox-item{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            color:white;
+            font-size:16px;
+        }
+
+        .checkbox-item input{
+            width:20px;
+            height:20px;
+            accent-color:#2563eb;
+        }
+
+        .undertaking-box{
+            background:rgba(255,255,255,0.05);
+            border:1px solid rgba(255,255,255,0.1);
+            border-radius:20px;
+            padding:25px;
+        }
+
+        .undertaking-title{
+            color:#38bdf8;
+            font-size:20px;
+            font-weight:600;
+            display:block;
+            margin-bottom:15px;
+        }
+
+        .undertaking-content p{
+            color:#e2e8f0;
+            line-height:1.8;
+            font-size:15px;
+        }
+
+        .check-line{
+            margin-top:20px;
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .check-line input{
+            width:20px;
+            height:20px;
+            accent-color:#2563eb;
+        }
+
+        .check-line span{
+            color:white;
+        }
+
+        .submit-btn{
+            grid-column:1/3;
+            padding:20px;
+            border:none;
+            border-radius:20px;
+            background:linear-gradient(to right,#06b6d4,#2563eb,#7c3aed);
+            color:white;
+            font-size:18px;
+            font-weight:600;
+            cursor:pointer;
+            transition:0.4s;
+        }
+
+        .submit-btn:hover{
+            transform:translateY(-4px);
+            box-shadow:0 10px 30px rgba(37,99,235,0.5);
+        }
+
+        .footer{
+            text-align:center;
+            margin-top:35px;
+            color:#94a3b8;
+            font-size:14px;
+        }
+
+        @media(max-width:768px){
+
+            form{
+                grid-template-columns:1fr;
+            }
+
+            .full,
+            .submit-btn{
+                grid-column:1;
+            }
+
+            .container{
+                padding:30px;
+            }
+
+            .logo h1{
+                font-size:38px;
+            }
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="bg">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="container">
+
+        <div class="logo">
+            <h1>BUNY ACADEMY</h1>
+            <p>Elite Government Exam Preparation Portal 🚀</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <div class="input-box">
+                <label>Full Name</label>
+                {{ form.name }}
+            </div>
+
+            <div class="input-box">
+                <label>Phone Number</label>
+                {{ form.phone }}
+            </div>
+
+            <div class="input-box full">
+                <label>Email Address</label>
+                {{ form.email }}
+            </div>
+
+            <div class="input-box full">
+                <label>Residential Address</label>
+                {{ form.address }}
+            </div>
+
+            <div class="input-box full">
+                <label>Select Government Exam</label>
+                {{ form.exam }}
+            </div>
+
+            <div class="input-box full">
+
+                <label>Training Type</label>
+
+                <select name="training_type" required>
+
+                    <option value="">Select Training Type</option>
+
+                    <option value="Physical Training">
+                        Physical Training
+                    </option>
+
+                    <option value="Written Preparation">
+                        Written Preparation
+                    </option>
+
+                    <option value="Both Physical + Written">
+                        Both Physical + Written
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="full category-box">
+
+                <label class="category-title">
+                    Special Categories
+                </label>
+
+                <div class="checkbox-grid">
+
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="widow">
+                        Widow
+                    </label>
+
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="bpl">
+                        BPL
+                    </label>
+
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="irdp">
+                        IRDP
+                    </label>
+
+                </div>
+
+            </div>
+
+            <div class="full category-box">
+
+                <label class="checkbox-item">
+                    <input type="checkbox" name="physical_training" id="physical_training">
+                    I Want Physical Training
+                </label>
+
+            </div>
+
+            <div class="full undertaking-box" id="undertakingBox" style="display:none;">
+
+                <label class="undertaking-title">
+                    Physical Training Undertaking
+                </label>
+
+                <div class="undertaking-content">
+
+                    <p>
+                        I understand that physical training includes running,
+                        exercise and outdoor activities.
+
+                        If any injury, accident or health issue happens
+                        during training, Buny Academy will not be responsible.
+                    </p>
+
+                    <div class="check-line">
+
+                        <input
+                            type="checkbox"
+                            name="undertaking"
+                            id="undertakingCheck"
+                        >
+
+                        <span>
+                            I Agree To The Undertaking Terms
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="upload-card">
+                <label>Upload Aadhaar Card</label>
+                {{ form.aadhaar }}
+            </div>
+
+            <div class="upload-card">
+                <label>Upload Marksheet</label>
+                {{ form.marksheet }}
+            </div>
+
+            <div class="upload-card">
+                <label>Upload Passport Photo</label>
+                {{ form.photo }}
+            </div>
+
+            <div class="upload-card">
+                <label>Upload Signature</label>
+                {{ form.signature }}
+            </div>
+
+            <button type="submit" class="submit-btn">
+                COMPLETE ADMISSION
+            </button>
+
+        </form>
+
+        <div class="footer">
+            © 2026 Buny Academy • Dream • Prepare • Achieve
+        </div>
+
+    </div>
+
+<script>
+
+    const physicalTraining =
+        document.getElementById('physical_training');
+
+    const undertakingBox =
+        document.getElementById('undertakingBox');
+
+    const undertakingCheck =
+        document.getElementById('undertakingCheck');
+
+    physicalTraining.addEventListener('change', function(){
+
+        if(this.checked){
+
+            undertakingBox.style.display = 'block';
+
+            undertakingCheck.required = true;
+
+        }
+        else{
+
+            undertakingBox.style.display = 'none';
+
+            undertakingCheck.required = false;
+
+            undertakingCheck.checked = false;
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
