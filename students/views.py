@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, EmailMessage
+from httpcore import request
 from .forms import StudentForm
 from .models import Student
 import random
@@ -23,6 +24,7 @@ def admission(request):
             # GENERATE OTP
             otp = str(random.randint(100000, 999999))
             request.session['otp'] = otp
+            print("GENERATED OTP:", otp)
 
             # STORE ID FOR LATER
             request.session['student_id'] = student.id
@@ -56,6 +58,8 @@ def verify_otp(request):
 
         user_otp = request.POST.get('otp')
         real_otp = request.session.get('otp')
+        print("USER OTP:", user_otp)
+        print("SESSION OTP:", request.session.get('otp'))
 
         if str(user_otp) == str(real_otp):
 
