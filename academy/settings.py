@@ -3,7 +3,11 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "4ka3n4nu==jsclxd=n9tu0syzj+zj5vp(y2%ph#3-6i%o4x5d!"
+)
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
