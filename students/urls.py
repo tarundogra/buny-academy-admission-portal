@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.admission, name='admission'),
 
     path('verify/', views.verify_otp, name='verify_otp'),
+    # path('success/', views.success, name='success'),
 
 ]
