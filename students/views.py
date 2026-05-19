@@ -1,10 +1,9 @@
+from email.message import EmailMessage
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail, EmailMessage
-from httpcore import request
+from django.core.mail import send_mail
 from .forms import StudentForm
 from .models import Student
 import random
-
 
 # =========================
 # ADMISSION VIEW
