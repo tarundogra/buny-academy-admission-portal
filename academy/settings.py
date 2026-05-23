@@ -131,7 +131,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'aba955001@smtp-brevo.com'
 
 
-
 import os
 
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
