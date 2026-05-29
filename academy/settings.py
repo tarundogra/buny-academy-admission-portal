@@ -3,14 +3,10 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 DEBUG = True
-ALLOWED_HOSTS = [
-    "web-production-1f7520.up.railway.app",
-    ".up.railway.app",
-    "localhost",
-    "127.0.0.1",
-]
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
     "https://web-production-1f7520.up.railway.app",
 ]
@@ -121,14 +117,35 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import os
 
+import os
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
+DEBUG = True
+
+ALLOWED_HOSTS = ['*']
+
+
+# =========================
+# EMAIL SETTINGS
+# =========================
+
+import os
+
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp-relay.brevo.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = 'bunyacademy@gmail.com'
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 587))
+
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
-DEFAULT_FROM_EMAIL = 'bunyacademy@gmail.com'
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS") == "True"
+
+EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL") == "True"
+
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
