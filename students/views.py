@@ -5,6 +5,7 @@ from .forms import StudentForm
 from .models import Student
 import random
 
+
 # =========================
 # ADMISSION VIEW
 # =========================
@@ -22,27 +23,38 @@ def admission(request):
             # GENERATE OTP
             otp = str(random.randint(100000, 999999))
 
+            # SAVE OTP IN SESSION
             request.session['otp'] = otp
             request.session['student_id'] = student.id
 
+            # GET EMAIL
+            email = student.email
+
             # SEND OTP EMAIL
             try:
+
                 send_mail(
-                    'OTP Verification',
-                    f'Your OTP is {otp}',
-                    settings.DEFAULT_FROM_EMAIL,
-                    [student.email],
+                    subject='Your OTP Code',
+                    message=f'Your OTP is: {otp}',
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[email],
                     fail_silently=False,
                 )
 
                 print("EMAIL SENT SUCCESS")
 
             except Exception as e:
+
                 print("EMAIL ERROR:", str(e))
 
             return redirect('verify_otp')
 
+        else:
+
+            print(form.errors)
+
     else:
+
         form = StudentForm()
 
     return render(request, 'students/admission.html', {
@@ -60,11 +72,21 @@ def verify_otp(request):
         user_otp = request.POST.get('otp')
         real_otp = request.session.get('otp')
 
+        # CHECK OTP
         if str(user_otp) == str(real_otp):
 
             student_id = request.session.get('student_id')
-            student = Student.objects.get(id=student_id)
 
+            try:
+                student = Student.objects.get(id=student_id)
+
+            except Student.DoesNotExist:
+
+                return render(request, 'students/verify_otp.html', {
+                    'error': 'Student not found'
+                })
+
+            # SEND DETAILS TO ADMIN
             try:
 
                 message = f"""
@@ -79,31 +101,32 @@ Exam: {student.exam}
 Training Type: {student.training_type}
 """
 
-                email = EmailMessage(
-                    'New Admission - Buny Academy',
-                    message,
-                    settings.DEFAULT_FROM_EMAIL,
-                    ['bunyacademy@gmail.com']
+                admin_email = EmailMessage(
+                    subject='New Admission - Buny Academy',
+                    body=message,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=['bunyacademy@gmail.com']
                 )
 
                 # ATTACH FILES
                 if student.aadhaar:
-                    email.attach_file(student.aadhaar.path)
+                    admin_email.attach_file(student.aadhaar.path)
 
                 if student.marksheet:
-                    email.attach_file(student.marksheet.path)
+                    admin_email.attach_file(student.marksheet.path)
 
                 if student.photo:
-                    email.attach_file(student.photo.path)
+                    admin_email.attach_file(student.photo.path)
 
                 if student.signature:
-                    email.attach_file(student.signature.path)
+                    admin_email.attach_file(student.signature.path)
 
-                email.send(fail_silently=False)
+                admin_email.send(fail_silently=False)
 
                 print("ADMIN EMAIL SENT")
 
             except Exception as e:
+
                 print("ADMIN EMAIL ERROR:", str(e))
 
             return render(request, 'students/success.html', {
