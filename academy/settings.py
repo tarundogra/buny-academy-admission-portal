@@ -3,7 +3,7 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 import os
-SECRET_KEY = os.environ.get("SECRET_KEY", "django-secret")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
 ALLOWED_HOSTS = [
